@@ -1,0 +1,31 @@
+On branch master
+Your branch is behind 'alx-pre_course/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    .viminfo
+	modified:   0x03_vi/cutting
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../.dockerenv
+	../bin
+	../dev/
+	../etc/
+	../lib
+	../lib32
+	../lib64
+	../libx32
+	../opt/
+	../proc/
+	cutting
+	../run/
+	../sbin
+	../sys/
+	../tmp/
+	../usr/
+	../var/
+
+no changes added to commit (use "git add" and/or "git commit -a")
