@@ -27,22 +27,32 @@
 # Registers:
 
 # File marks:
-'0  1  0  /.git/MERGE_MSG
-|4,48,1,0,1646146141,"/.git/MERGE_MSG"
-'1  1  0  /.git/COMMIT_EDITMSG
-|4,49,1,0,1646133517,"/.git/COMMIT_EDITMSG"
-'2  1  0  ~/.git-credentials
-|4,50,1,0,1646053987,"~/.git-credentials"
-'3  1  0  /.dockerenv
-|4,51,1,0,1646051384,"/.dockerenv"
+'0  1  0  /alx-zero_day/.git/MERGE_MSG
+|4,48,1,0,1646156436,"/alx-zero_day/.git/MERGE_MSG"
+'1  1  0  /.git/MERGE_MSG
+|4,49,1,0,1646146141,"/.git/MERGE_MSG"
+'2  1  0  /.git/COMMIT_EDITMSG
+|4,50,1,0,1646133517,"/.git/COMMIT_EDITMSG"
+'3  1  0  ~/.git-credentials
+|4,51,1,0,1646053987,"~/.git-credentials"
+'4  1  0  /.dockerenv
+|4,52,1,0,1646051384,"/.dockerenv"
 
 # Jumplist (newest first):
+-'  1  0  /alx-zero_day/.git/MERGE_MSG
+|4,39,1,0,1646156436,"/alx-zero_day/.git/MERGE_MSG"
+-'  1  0  /.git/MERGE_MSG
+|4,39,1,0,1646146141,"/.git/MERGE_MSG"
 -'  1  0  /.git/MERGE_MSG
 |4,39,1,0,1646146141,"/.git/MERGE_MSG"
 -'  1  0  /.git/COMMIT_EDITMSG
 |4,39,1,0,1646133517,"/.git/COMMIT_EDITMSG"
 -'  1  0  /.git/COMMIT_EDITMSG
 |4,39,1,0,1646133517,"/.git/COMMIT_EDITMSG"
+-'  1  0  /.git/COMMIT_EDITMSG
+|4,39,1,0,1646133517,"/.git/COMMIT_EDITMSG"
+-'  1  0  /.git/COMMIT_EDITMSG
+|4,39,1,0,1646133517,"/.git/COMMIT_EDITMSG"
 -'  1  0  ~/.git-credentials
 |4,39,1,0,1646053987,"~/.git-credentials"
 -'  1  0  ~/.git-credentials
@@ -51,6 +61,30 @@
 |4,39,1,0,1646053987,"~/.git-credentials"
 -'  1  0  ~/.git-credentials
 |4,39,1,0,1646053987,"~/.git-credentials"
+-'  1  0  ~/.git-credentials
+|4,39,1,0,1646053987,"~/.git-credentials"
+-'  1  0  ~/.git-credentials
+|4,39,1,0,1646053987,"~/.git-credentials"
+-'  1  0  ~/.git-credentials
+|4,39,1,0,1646053987,"~/.git-credentials"
+-'  1  0  ~/.git-credentials
+|4,39,1,0,1646053987,"~/.git-credentials"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
+-'  1  0  /.dockerenv
+|4,39,1,0,1646051384,"/.dockerenv"
 -'  1  0  /.dockerenv
 |4,39,1,0,1646051384,"/.dockerenv"
 -'  1  0  /.dockerenv
