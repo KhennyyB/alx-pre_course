@@ -1,0 +1,404 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+if [ -n "$DEBIAN_SCRIPT_DEBUG" ]; then set -v -x; DEBIAN_SCRIPT_TRACE=1; fi
+${DEBIAN_SCRIPT_TRACE:+ echo "#42#DEBUG# RUNNING $0 $*" 1>&2 }
+ 
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
+
+# This command can be used as pipe to syslog. With "-s" it also logs to stderr.
+ERR_LOGGER="logger -p daemon.err -t mysqld_safe -i"
+
+# Start the server with networking disabled and socket in a temporary location
+# Usage: start_server <datadir> <tmpdir> <skip_grant>
+# Params:
+# datadir - Location of database files
+# tmpdir - Used to store temporary pid and socket files
+# skip_grant - If set, the server will be started with --skip-grant-tables
+start_server() {
+  local datadir=$1
+  local tmpdir=$2
+  local skip_grant=$3
+  # If a database is already running, mysqld will keep trying to lock the files for ~100 seconds before failing.
+  # If the ibdata1 file is locked we fail immediately
+  if fuser "$datadir/ibdata1"; then
+    echo "ERROR: Database files are locked. Daemon already running?" >&2
+    return 1
+  fi
+  # The --daemonize flag makes the process fork, with the original exiting once the database is ready for use
+  if [ ! -z "$skip_grant" ]; then
+    mysqld --user=mysql --daemonize --socket="$tmpdir/mysqld.sock" --pid-file="$tmpdir/mysqld.pid" --skip-networking --skip-grant-tables
+  else
+    mysqld --user=mysql --daemonize --socket="$tmpdir/mysqld.sock" --pid-file="$tmpdir/mysqld.pid" --skip-networking
+  fi
+}
+
+# Shut down the server by sending a kill signal to the process
+# Usage: stop_server <tmpdir>
+# Params:
+# tmpdir - Location of temporary pid-file
+stop_server(){
+  local tmpdir=$1
+  # Send kill signal
+  server_pid=$(cat "$tmpdir/mysqld.pid")
+  kill "$server_pid"
+
+  for i in $(seq 1 60); do
+    sleep 0.1 # A full second is too long, but we need to give the server _some_ time.
+    if ! $(ps $server_pid >/dev/null 2>&1); then
+      return 0
+    fi
+    sleep 1
+  done
+  # The server hasn't shut down in a timely manner
+  echo "Error: Unable to shut down server with process id $server_pid" >&2
+  return 1
+}
+
+# Runs an arbitrary init sql file supplied in $1. Does not require login access
+run_init_sql() {
+  tmpdir=`mktemp -d`
+  chown mysql:mysql "$tmpdir"
+  mysqld --user=mysql --init-file="$1" --socket="$tmpdir/mysqld.sock" --pid-file="$tmpdir/mysqld.pid" > /dev/null 2>&1
+  result=$?
+  rm -rf "$tmpdir"
+  return $result
+}
+
+# To avoid having hardcoded paths in the script, we do a search on the path, as suggested at:
+# https://www.debian.org/doc/manuals/developers-reference/ch06.en.html#bpp-debian-maint-scripts
+pathfind() {
+  OLDIFS="$IFS"
+  IFS=:
+  for p in $PATH; do
+    if [ -x "$p/$*" ]; then
+      IFS="$OLDIFS"
+      return 0
+    fi
+  done
+  IFS="$OLDIFS"
+  return 1
+}
+
+invoke() {
+  if pathfind invoke-rc.d; then
+    invoke-rc.d mysql $1
+  else
+    /etc/init.d/mysql $1
+  fi
+}
+
+# Check if server is able to start. If it fails we abort early and refer
+# the user to a wiki page with solutions for common configuration problems.
+test_mysqld_startup() {
+  # mysqld --verbose --help will output a full listing of settings and plugins.
+  # To do so it needs to initialize the database, so it can be used as a test
+  # for whether or not the server can start. We redirect stdout to /dev/null so
+  # only the error messages are left.
+  result=0
+  output=$(mysqld --verbose --help --innodb-read-only 2>&1 > /dev/null) || result=$?
+  if [ ! "$result" = "0" ]; then
+    echo "ERROR: Unable to start MySQL server:" >&2
+    echo "$output" >&2
+    echo "Please take a look at https://wiki.debian.org/Teams/MySQL/FAQ for tips on fixing common upgrade issues." >&2
+    echo "Once the problem is resolved, run apt-get --fix-broken install to retry." >&2
+  fi
+  return $result
+}
+
+# The query cache feature has been removed in 8.0, but the 5.7 default config has settings
+# for it, causing errors when starting the 8.0 server.
+# To work around this we comment out these options if an old 5.7 config file is present.
+fix_old_config_options() {
+  sed -e 's/[[:space:]]*query\_cache*/# Deprecated query cache option disabled by maintainer script\n#query\_cache/' \
+  /etc/mysql/mysql.conf.d/mysqld.cnf --in-place=.bak
+  # If nothing was changed, remove the new file
+  if cmp -s /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak; then
+    mv /etc/mysql/mysql.conf.d/mysqld.cnf.bak /etc/mysql/mysql.conf.d/mysqld.cnf
+  fi
+}
+
+# Check if there is passwordless root login
+# Usage: test_mysql_access <tmpdir>
+# Params:
+# tmpdir - Location of mysqld.sock file
+test_mysql_access() {
+  local tmpdir=$1
+  mysql --no-defaults -u root --socket="$tmpdir/mysqld.sock" </dev/null >/dev/null 2>&1
+}
+
+this_version=5.7
+
+# This is necessary because mysql_install_db removes the pid file in /var/run
+# and because changed configuration options should take effect immediately.
+# In case the server wasn't running at all it should be ok if the stop
+# script fails. I can't tell at this point because of the cleaned /var/run.
+set +e; invoke stop; set -e
+    
+case "$1" in
+  configure)
+    # INSERT ANY VERSIONED UPGRADE PATH HANDLING HERE AND NO LATER
+
+    # Versioned upgrade path handling must be done before freeze mode detection;
+    # otherwise the following freeze mode handling may cause upgrade path
+    # handling to be skipped over multiple version upgrades, meaning that the
+    # upgrade path handling never runs on some systems where freeze mode
+    # remains active for a long period.
+
+    if [ -e /etc/mysql/FROZEN -o -h /etc/mysql/FROZEN ]; then
+      error_message="MySQL has been frozen to prevent damage to your system. Please see /etc/mysql/FROZEN for help."
+      logger -p daemon.err -t /etc/init.d/mysql -i "$error_message"
+      db_input critical mysql-server-$this_version/installation_freeze_mode_active || true
+      db_go
+      db_stop
+      echo "$error_message" 1>&2
+      exit 0
+    fi
+
+    mysql_datadir=/usr/share/mysql
+    mysql_statedir=/var/lib/mysql
+    mysql_rundir=/var/run/mysqld
+    mysql_logdir=/var/log/mysql
+    mysql_cfgdir=/etc/mysql
+    mysql_upgradedir=/var/lib/mysql-upgrade
+    mysql_filesdir=/var/lib/mysql-files
+    mysql_keyringdir=/var/lib/mysql-keyring
+
+    # mysqld gets called during postinst configure, so any
+    # updates to the AppArmor profile must be loaded first (before the
+    # dh_apparmor snippet added by debhelper does it properly at the end of
+    # this script). Otherwise, mysqld cannot for example load
+    # /etc/mysql/mysqld.conf.d/ on upgrade from 5.5 to 5.6, which was added in
+    # 5.6 packaging but not present in the AppArmor profile shipped with 5.5
+    # packaging.
+    #
+    # This a workaround. Status is tracked at https://launchpad.net/bugs/1435368
+    if aa-status --enabled 2>/dev/null; then
+      # It is common for this to fail because
+      # /etc/apparmor.d/local/usr.sbin.mysqld doesn't exist (eg. on first
+      # install). But if this happens, then the workaround is not required,
+      # so it doesn't matter. If instead it causes a security issue, then
+      # that doesn't really matter here as dh_apparmor should handle that
+      # correctly later on.
+      apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld 2>/dev/null || true
+    fi
+
+    # New packaging paradigm for my.cnf as of Dec-2014 for sharing mysql
+    # variants in Ubuntu.
+    /usr/share/mysql-common/configure-symlinks install mysql "$mysql_cfgdir/mysql.cnf"
+
+    # Ensure the existence and right permissions for the database and
+    # log files.
+    for d in $mysql_statedir $mysql_filesdir $mysql_keyringdir $mysql_logdir
+    do
+      if [ ! -d "$d" -a ! -L "$d" ]; then mkdir "$d"; fi
+      chown -R mysql:mysql $d
+      chmod 0700 $d
+    done
+
+    # When creating an ext3 jounal on an already mounted filesystem like e.g.
+    # /var/lib/mysql, you get a .journal file that is not modifyable by chown.
+    # The mysql_datadir must not be writable by the mysql user under any
+    # circumstances as it contains scripts that are executed by root.
+    set +e
+    chown -R 0:0 $mysql_datadir
+    touch $mysql_logdir/error.log
+    chown -R mysql:adm $mysql_logdir
+    chmod 0750 $mysql_logdir
+    chmod 0640 $mysql_logdir/error.log
+    set -e
+
+    # This is important to avoid dataloss when there is a removed
+    # mysql-server version from Woody lying around which used the same
+    # data directory and then somewhen gets purged by the admin.
+    db_set mysql-server/postrm_remove_database false || true
+
+    # Fix old options that were deprecated in 5.5 and removed in 5.7
+    if dpkg --compare-versions "$2" le "8.0.16-0ubuntu3~"; then
+      echo "Renaming removed key_buffer and myisam-recover options (if present)"
+      fix_old_config_options
+    fi
+
+    # Sanity check to make sure the server can start
+    test_mysqld_startup
+
+    ## On every reconfiguration the maintenance user is recreated.
+    #
+    # - It is easier to regenerate the password every time but as people
+    #   use fancy rsync scripts and file alteration monitors, the existing
+    #   password is used and existing files not touched.
+    # - The echo is just for readability. ash's buildin has no "-e" so use /bin/echo.
+
+    # recreate the credentials file if not present or without mysql_upgrade stanza
+    dc=$mysql_cfgdir/debian.cnf; 
+    if [ -e "$dc" -a -n "`fgrep mysql_upgrade $dc 2>/dev/null`" ]; then
+      pass="`sed -n 's/^[     ]*password *= *// p' $dc | head -n 1`"
+      # Basedir is deprecated. Remove the option if it's in an existing debian.cnf
+      sed -i '/basedir/d' "$dc"
+    else
+      pass=`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..16)'`;
+      if [ ! -d "$mysql_cfgdir" ]; then install -o 0 -g 0 -m 0755 -d $mysql_cfgdir; fi
+      umask 066
+      cat /dev/null > $dc
+      umask 022
+      echo "# Automatically generated for Debian scripts. DO NOT TOUCH!" >>$dc
+      echo "[client]"                                                    >>$dc
+      echo "host     = localhost"                                        >>$dc
+      echo "user     = debian-sys-maint"                                 >>$dc
+      echo "password = $pass"                                            >>$dc
+      echo "socket   = $mysql_rundir/mysqld.sock"                        >>$dc
+      echo "[mysql_upgrade]"                                             >>$dc
+      echo "host     = localhost"                                        >>$dc
+      echo "user     = debian-sys-maint"                                 >>$dc
+      echo "password = $pass"                                            >>$dc
+      echo "socket   = $mysql_rundir/mysqld.sock"                        >>$dc
+    fi
+    # If this dir chmod go+w then the admin did it. But this file should not.
+    chown 0:0 $dc
+    chmod 0600 $dc
+
+    # Initiate database. Output is not allowed by debconf :-(
+    # If database doesn't exist we create it.
+    if [ ! "$(ls -A "${mysql_statedir}")" ] && [ -d "${mysql_filesdir}" ]; then
+      existingdatabase=0
+      initfile=`mktemp --tmpdir=/var/lib/mysql-files/`
+      touch "$initfile"
+      chmod 600 "$initfile"
+      chown mysql:mysql "$initfile"
+      echo "USE mysql; " >> "$initfile"
+      db_get mysql-server/root_password && rootpw="$RET"
+      if [ ! -z "$rootpw" ]; then
+        rootpw=$(printf %q "${rootpw}")
+        echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$rootpw';" >> "$initfile"
+      fi
+      echo "CREATE USER IF NOT EXISTS 'debian-sys-maint'@'localhost' IDENTIFIED BY '$pass';" >> "$initfile"
+      echo "GRANT ALL ON *.* TO 'debian-sys-maint'@'localhost' WITH GRANT OPTION;" >> "$initfile"
+      echo "SHUTDOWN;" >> "$initfile"
+      # mysqld returns an error instead of a warning if CREATE USER IF NOT
+      # EXISTS fails, so ignore errors as a workaround. See:
+      # http://bugs.mysql.com/bug.php?id=80636
+      mysqld --initialize-insecure --user=mysql --init-file="$initfile"> /dev/null 2>&1 || true
+      rm "$initfile"
+    else
+      existingdatabase=1
+    fi
+
+    # To avoid downgrades. This has to happen after the database is created, or --initialize will fail
+    touch $mysql_statedir/debian-5.7.flag
+
+  ;;
+
+  abort-upgrade|abort-remove|abort-configure)
+  ;;
+
+  *)
+    echo "postinst called with unknown argument '$1'" 1>&2
+    exit 1
+  ;;
+esac
+
+
+if [ "$1" = "configure" ]; then
+  # Here we check to see if we can connect as root without a password
+  # this should catch upgrades from previous versions where the root
+  # password wasn't set.  If the connection succeeds we install the
+  # auth_socket plugin and enable it for the root user to improve
+  # security.
+  tmpdir=$(mktemp -d)
+  chown mysql:mysql "$tmpdir"
+  mysql_statedir=/var/lib/mysql
+  result=0
+  start_server "$mysql_statedir" "$tmpdir" || result=$?
+  if [ $result -ne 0 ]; then
+    echo "Warning: Unable to start the server." >&2
+  elif test_mysql_access "$tmpdir"; then
+    db_get mysql-server/root_password && rootpw="$RET"
+    if [ ! -z "$rootpw" ]; then
+      stop_server "$tmpdir"
+      rootpw=$(printf %q "${rootpw}")
+      initfile=`mktemp --tmpdir=/var/lib/mysql-files/`
+      chown mysql:mysql "$initfile"
+      echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'caching_sha2_password' BY '$rootpw';" >> "$initfile"
+      echo "SHUTDOWN;"                                                                           >> "$initfile"
+      run_init_sql "$initfile"
+      rm "$initfile"
+    else
+      # Try to install auth_socket plugin. This throws an error if the plugin is
+      # already installed, which would end execution of the init sql to stop if
+      # --init-file was used. Bug: http://bugs.mysql.com/bug.php?id=80642
+      pluginfile=`mktemp --tmpdir=/var/lib/mysql-files/`
+      echo "INSTALL PLUGIN auth_socket SONAME 'auth_socket.so';" >> "$pluginfile"
+      mysql --no-defaults --socket="$tmpdir/mysqld.sock" -uroot < "$pluginfile" > /dev/null 2>&1 || true
+      rm "$pluginfile"
+      stop_server "$tmpdir"
+      initfile=`mktemp --tmpdir=/var/lib/mysql-files/`
+      chown mysql:mysql "$initfile"
+      # If there is no root password set we enable the auth_socket plugin for the root user
+      echo "USE mysql;"                                                                   >> "$initfile"
+      echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'auth_socket';"                 >> "$initfile"
+      echo "SHUTDOWN;"                                                                    >> "$initfile"
+      # The INSTALL PLUGIN line will throw an error if the plugin is already installed
+      run_init_sql "$initfile"
+      rm "$initfile"
+    fi
+  else
+    stop_server "$tmpdir"
+  fi
+  rm -rf "$tmpdir"
+fi
+
+# forget we ever saw the password.  don't use reset to keep the seen status
+db_set mysql-server/root_password ""
+db_set mysql-server/root_password_again ""
+db_stop # in case invoke failes
+
+# Automatically added by dh_apparmor/2.13.3-7ubuntu5
+if [ "$1" = "configure" ]; then
+    APP_PROFILE="/etc/apparmor.d/usr.sbin.mysqld"
+    if [ -f "$APP_PROFILE" ]; then
+        # Add the local/ include
+        LOCAL_APP_PROFILE="/etc/apparmor.d/local/usr.sbin.mysqld"
+
+        test -e "$LOCAL_APP_PROFILE" || {
+            mkdir -p `dirname "$LOCAL_APP_PROFILE"`
+            install --mode 644 /dev/null "$LOCAL_APP_PROFILE"
+        }
+
+        # Reload the profile, including any abstraction updates
+        if aa-enabled --quiet 2>/dev/null; then
+            apparmor_parser -r -T -W "$APP_PROFILE" || true
+        fi
+    fi
+fi
+# End automatically added section
+# Automatically added by dh_systemd_enable/12.10ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	# This will only remove masks created by d-s-h on package removal.
+	deb-systemd-helper unmask 'mysql.service' >/dev/null || true
+
+	# was-enabled defaults to true, so new installations run enable.
+	if deb-systemd-helper --quiet was-enabled 'mysql.service'; then
+		# Enables the unit on first installation, creates new
+		# symlinks on upgrades if the unit file has changed.
+		deb-systemd-helper enable 'mysql.service' >/dev/null || true
+	else
+		# Update the statefile to add new symlinks (if any), which need to be
+		# cleaned up on purge. Also remove old symlinks.
+		deb-systemd-helper update-state 'mysql.service' >/dev/null || true
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installinit/12.10ubuntu1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -x "/etc/init.d/mysql" ]; then
+		update-rc.d mysql defaults 19 21 >/dev/null
+		invoke-rc.d mysql start || exit 1
+	fi
+fi
+# End automatically added section
+
+
+exit 0

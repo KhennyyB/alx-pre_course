@@ -1,0 +1,4 @@
+2153f2d3506cefbcbbcd14f1f091e1e6  usr/lib/x86_64-linux-gnu/libisl.so.22.0.1
+1a037faa35ec4990a81a1911e7112040  usr/share/doc/libisl22/changelog.Debian.gz
+d90f4519e4b75ef018ecb247678cd474  usr/share/doc/libisl22/copyright
+834cba111459c14634ca0ddc1c460a9a  usr/share/gdb/auto-load/usr/lib/x86_64-linux-gnu/libisl.so.22.0.1-gdb.py

@@ -1,0 +1,7 @@
+libbind9 1600 bind9-libs (>= 1:9.16.1)
+libdns 1601 bind9-libs (>= 1:9.16.1)
+libirs 1600 bind9-libs (>= 1:9.16.1)
+libisc 1601 bind9-libs (>= 1:9.16.1)
+libisccc 1600 bind9-libs (>= 1:9.16.1)
+libisccfg 1600 bind9-libs (>= 1:9.16.1)
+libns 1601 bind9-libs (>= 1:9.16.1)

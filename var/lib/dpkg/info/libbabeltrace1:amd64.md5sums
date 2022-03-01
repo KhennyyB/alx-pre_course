@@ -1,0 +1,8 @@
+57c45f4a74498d18867f57cb9fc61b41  usr/lib/x86_64-linux-gnu/libbabeltrace-ctf-metadata.so.1.0.0
+f6b0706ffd8c52d56b16f11d48005574  usr/lib/x86_64-linux-gnu/libbabeltrace-ctf-text.so.1.0.0
+217d1f009492769743ac7d5a5077425d  usr/lib/x86_64-linux-gnu/libbabeltrace-ctf.so.1.0.0
+394a95d014fc5e5762d8fa9db8f40f2a  usr/lib/x86_64-linux-gnu/libbabeltrace-dummy.so.1.0.0
+cf520b74d290aa0a5552d92380dbb899  usr/lib/x86_64-linux-gnu/libbabeltrace-lttng-live.so.1.0.0
+cc14bd5f8f723c3e2e896cfb5400c09b  usr/lib/x86_64-linux-gnu/libbabeltrace.so.1.0.0
+14007e38adb30dcb383a533c42ba97cb  usr/share/doc/libbabeltrace1/changelog.Debian.gz
+41f68ef3fb7b1deb480bd22112eaf0c3  usr/share/doc/libbabeltrace1/copyright

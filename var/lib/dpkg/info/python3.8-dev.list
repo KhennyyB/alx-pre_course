@@ -1,0 +1,17 @@
+/.
+/usr
+/usr/bin
+/usr/share
+/usr/share/doc
+/usr/share/doc/python3.8
+/usr/share/doc/python3.8/HISTORY.gz
+/usr/share/doc/python3.8/README.maintainers
+/usr/share/doc/python3.8/README.valgrind.gz
+/usr/share/doc/python3.8/gdbinit.gz
+/usr/share/doc/python3.8/pybench.log
+/usr/share/doc/python3.8/test_results.gz
+/usr/share/man
+/usr/share/man/man1
+/usr/bin/python3.8-config
+/usr/share/doc/python3.8-dev
+/usr/share/man/man1/python3.8-config.1.gz

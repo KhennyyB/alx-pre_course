@@ -1,0 +1,336 @@
+
+Template: mysql-server-8.0/installation_freeze_mode_active
+Type: note
+Description: Automatic maintenance of MySQL server daemon disabled
+ Packaging maintainer scripts detected a case that it does not know how to
+ handle and cannot continue configuring MySQL. Automatic management of your
+ MySQL installation has been disabled to allow other packaging tasks to
+ complete. For more details, see /etc/mysql/FROZEN.
+Description-de.UTF-8: Automatische Verwaltung des MySQL-Server-Deamons deaktiviert
+ Die Paketier-Betreuerskripte entdeckten einen Fall, mit dem sie nicht umgehen und MySQL weiter konfigurieren können. Automatische Verwaltung Ihrer MySQL-Installation wurde deaktiviert, damit andere Paketieraufgaben abgeschlossen werden können. Für weitere Details siehe /etc/mysql/FROZEN.
+Description-fr.UTF-8: Maintenance automatique du démon du serveur MySQL désactivée
+ Les scripts des mainteneurs du paquet ont détecté un cas qu'ils ne savent pas gérer et ils ne peuvent pas continuer la configuration de MySQL. La gestion automatique de votre installation MySQL a été désactivée pour permettre aux autres tâches du paquet de s'exécuter correctement. Pour plus de détails, veuillez consulter /etc/mysql/FROZEN.
+Description-nl.UTF-8: Het automatisch onderhoud van de achtergronddienst MySQL-server werd uitgezet
+ De scripts voor pakketonderhoud vonden een situatie waarmee ze niet overweg kunnen en kunnen de configuratie van MySQL niet voortzetten. Het automatisch beheer van uw MySQL-installatie werd uitgezet om toe te laten dat de andere taken voor het onderhoud van het pakket, afgerond worden. Raadpleeg /etc/mysql/FROZEN voor meer informatie.
+Description-pt.UTF-8: Manutenção automática do 'daemon' MySQL desactivada
+ Os 'scripts' de manutenção de empacotamento detectaram um caso que não pode ser resolvido e não poderá continuar a configurar o MySQL. A gestão automática da sua instalação MySQL foi desactivada de modo a permitir a finalização de outras tarefas. Para mais detalhes veja /etc/mysql/FROZEN.
+
+Template: mysql-server-8.0/nis_warning
+Type: note
+Description: Important note for NIS/YP users
+ Using MySQL under NIS/YP requires a mysql user account to be added on
+ the local system with:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ You should also check the permissions and ownership of the
+ /var/lib/mysql directory:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-da.UTF-8: Vigtig oplysning til NIS/YP-brugere
+ Brug af MySQL under NIS/YP kræver at en mysql-brugerkonto tilføjes på det lokale system med:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Du bør også tjekke rettighederne og ejerskabet af mappen /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-de.UTF-8: Wichtige Anmerkung für NIS/YP-Benutzer!
+ Falls MySQL mit NIS/YP genutzt wird, ist ein »mysql«-Benutzerkonto auf dem lokalen System notwendig:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Sie sollten außerdem Besitzer und Zugriffsrechte des Verzeichnisses /var/lib/mysql überprüfen:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-es.UTF-8: Nota importante para los usuarios de NIS/YP
+ Utilizar MySQL con NIS/YP requiere que una cuenta de usuario de mysql sea agregada en el sistema local como:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ También debería comprobar los permisos y el propietario del directorio: /var/lib/mysql
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-fr.UTF-8: Note importante pour les utilisateurs NIS/YP
+ L'utilisation de MySQL avec NIS/YP impose l'ajout d'un compte local « mysql » avec la commande :
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Vous devez également vérifier le propriétaire et les droits du répertoire /var/lib/mysql :
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-it.UTF-8: Nota importante per gli utenti NIS/YP
+ Per usare MySQL con NIS/YP è necessario aggiungere al sistema locale un account utente per mysql con:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Inoltre si devono verificare i permessi e la proprietà della directory /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-ja.UTF-8: NIS/YP ユーザへの重要な注意
+ NIS/YP 配下で MySQL を使うには、次のようにしてローカルのシステムに mysql のユーザアカウントを追加する必要があります: 
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ /var/lib/mysql のパーミッションと所有者権限が以下のようになっているかチェックする必要もあります:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-nl.UTF-8: Belangrijke opmerking voor gebruikers van NIS/YP
+ Het gebruik van MySQL onder NIS/YP vereist dat een MySQL gebruikersaccount wordt toegevoegd aan het lokale systeem met:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ U moet ook de toegangsrechten en de eigendomsrechten van de map /var/lib/mysql controleren:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-pt.UTF-8: Nota importante para utilizadores de NIS/YP
+ Utilizar MySQL com NIS/YP necessita que seja adicionada uma conta de utilizador de mysql ao sistema local com:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Deve também verificar as permissões e o dono do directório /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-pt_BR.UTF-8: Aviso importante para usuários NIS/YP
+ Usar o MySQL sob NIS/YP requer que uma conta de usuário mysql seja adicionada ao sistema local com:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Você deverá também verificar as permissões e o dono do diretório /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-ru.UTF-8: Важное замечание для пользователей NIS/YP
+ Использование MySQL в NIS/YP требует добавления учётной записи mysql в локальную систему с:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Также проверьте права доступа и владельца каталога /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-sk.UTF-8: Dôležitá poznámka pre používateľov NIS/YP
+ Používanie MySQL pod NIS/YP vyžaduje aby bol používateľský účet mysql pridaný do lokálneho systému pomocou:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Mali by ste tiež skontrolovať vlastníctvo a práva k adresáru /var/lib/mysql:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-sv.UTF-8: Viktig information för NIS/YP-användare
+ För att kunna använda MySQL under NIS/YP måste ett användarkonto för MySQL läggas till i systemet.
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ Du bör också kontrollera rättigheterna och ägaren av katalogen /var/lib/mysql.
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+Description-tr.UTF-8: NIS/YP kullanıcıları için önemli not
+ MySQL'in NIS/YP ile kullanılması için yerel sisteme aşağıdaki komut çalıştırılarak mysql kullanıcı hesabının eklenmesi gereklidir:
+ .
+  adduser --system --group --home /var/lib/mysql mysql
+ .
+ /var/lib/mysql dizininin sahiplik ve izin ayarlarını da gözden geçirmelisiniz:
+ .
+  /var/lib/mysql: drwxr-xr-x   mysql    mysql
+
+Template: mysql-server-8.0/postrm_remove_databases
+Type: boolean
+Default: false
+Description: Remove all MySQL databases?
+ The /var/lib/mysql directory which contains the MySQL databases is about
+ to be removed.
+ .
+ This will also erase all data in /var/lib/mysql-files as well as
+ /var/lib/mysql-keyring.
+ .
+ If you're removing the MySQL package in order to later install a more
+ recent version or if a different mysql-server package is already
+ using it, the data should be kept.
+Description-da.UTF-8: Fjern alle MySQL-databaser?
+ Mappen /var/lib/mysql, der indeholder MySQL-databaserne, er ved at blive fjernet.
+ .
+ Dette vil slette alle data i /var/lib/mysql-files samt /var/lib/mysql-keyring.
+ .
+ Hvis du fjerner MySQL-pakken for senere at installere en nyere version, eller hvis en anden mysql-server-pakke allerede benytter den, bør dataene bevares.
+Description-de.UTF-8: Alle MySQL-Datenbanken entfernen?
+ Das Verzeichnis /var/lib/mysql mit den MySQL-Datenbanken soll entfernt werden.
+ .
+ Dies wird auch alle Daten in /var/lib/mysql-files sowie in /var/lib/mysql-keyring löschen.
+ .
+ Falls geplant ist, nur eine höhere Version von MySQL zu installieren oder ein anderes mysql-server-Paket dieses bereits benutzt, sollten die Daten behalten werden.
+Description-fr.UTF-8: Faut-il supprimer toutes les bases de données MySQL ?
+ Le répertoire /var/lib/mysql qui contient les bases de données de MySQL va être supprimé.
+ .
+ Cela effacera aussi toutes les données du répertoire /var/lib/mysql-files et du répertoire /var/lib/mysql-keyring.
+ .
+ Si vous prévoyez d'installer une version plus récente de MySQL ou si un autre paquet mysql-server les utilise déjà, vous devriez les conserver.
+Description-nl.UTF-8: Wilt u alle MySQL-databases verwijderen?
+ De map /var/lib/mysql die de MySQL-databases bevat staat op het punt om verwijderd te worden.
+ .
+ Dit zal ook alle gegevens verwijderen uit /var/lib/mysql-files en /var/lib/mysql-keyring.
+ .
+ Als u het MySQL-pakket verwijdert om later een meer recente versie te installeren of als een ander mysql-server pakket het al gebruikt, zou de data behouden moeten worden.
+Description-pt.UTF-8: Remover todas as bases de dados MySQL?
+ O directório /var/lib/mysql que contém as bases de dados MySQL está prestes a ser removido.
+ .
+ Isto irá apagar todos os dados em /var/lib/mysql-files bem como em /var/lib/mysql-keyring.
+ .
+ Se está a remover o pacote MySQL de modo a posteriormente instalar uma versão mais recente ou se um pacote mysql-server já está os está a utilizar, os dados devem ser mantidos.
+
+Template: mysql-server-8.0/start_on_boot
+Type: boolean
+Default: true
+Description: Start the MySQL server on boot?
+ The MySQL server can be launched automatically at boot time or manually
+ with the '/etc/init.d/mysql start' command.
+Description-ar.UTF-8: تشغيل خادم MySQL عند الإقلاع؟
+ يمكن تشغيل خادم MySQL آلياً وقت الإقلاع أو يدوياً باستخدام الأمر '/etc/init.d/mysql start'.
+Description-cs.UTF-8: Spustit MySQL server při startu systému?
+ MySQL se může spouštět automaticky při startu systému, nebo ručně příkazem '/etc/init.d/mysql start'.
+Description-da.UTF-8: Start MySQL-serveren under systemopstart?
+ MySQL-serveren kan enten startes op automatisk under systemopstarten, eller manuelt med kommandoen '/etc/init.d/mysql start'.
+Description-de.UTF-8: Soll der MySQL-Server automatisch beim Systemstart starten?
+ Der MySQL-Dienst kann entweder automatisch beim Systemstart oder manuell durch Eingabe des Befehls »/etc/init.d/mysql start« gestartet werden.
+Description-es.UTF-8: ¿Desea que el servidor MySQL se ejecute al iniciar el sistema?
+ El servidor MySQL puede iniciarse en el momento de arranque del sistema o manualmente si escribe la orden «/etc/init.d/mysql start».
+Description-eu.UTF-8: Abioan MySQL zerbitzaria abiarazi?
+ Sistema abioan MySQL automatikoki abiarazi daiteke edo eskuz '/etc/init.d/mysql start' eginaz.
+Description-fr.UTF-8: Faut-il lancer MySQL au démarrage ?
+ MySQL peut être lancé soit au démarrage, soit en entrant la commande « /etc/init.d/mysql start ».
+Description-gl.UTF-8: ¿Iniciar o servidor MySQL co ordenador?
+ Pódese iniciar automaticamente o servidor MySQL ao iniciar o ordenador, ou manualmente coa orde "/etc/init.d/mysql start".
+Description-it.UTF-8: Lanciare il server MySQL all'avvio?
+ Il server MySQL può essere lanciato automaticamente all'avvio del sistema oppure manualmente con il comando «/etc/init.d/mysql start».
+Description-ja.UTF-8: MySQL をシステム起動時に開始しますか?
+ MySQL の起動方法について、システム起動時に自動的に開始するか、あるいは '/etc/init.d/mysql start' と手で入力して起動するかを選べます。
+Description-nl.UTF-8: Moet MySQL starten als de computer start?
+ De MySQL-server kan automatisch worden gestart bij het starten van de computer of slechts wanneer u '/etc/init.d/mysql start' handmatig uitvoert.
+Description-pt.UTF-8: Iniciar o servidor MySQL no arranque?
+ O MySQL pode ser automaticamente lançado no arranque ou manualmente através do comando '/etc/init.d/mysql start'.
+Description-pt_BR.UTF-8: Iniciar o servidor MySQL junto à inicialização da máquina?
+ O servidor MySQL pode ser iniciado automaticamente junto à inicialização da máquina ou manualmente com o comando "/etc/init.d/mysql start".
+Description-ru.UTF-8: Запускать MySQL при загрузке системы?
+ Сервер MySQL можно запускать автоматически при загрузке системы или вручную по команде '/etc/init.d/mysql start'.
+Description-sk.UTF-8: Spúšťať MySQL server pri štarte systému?
+ MySQL server môže byť automaticky spúšťaný pri štarte systému alebo manuálne príkazom „/etc/init.d/mysql start”.
+Description-sv.UTF-8: Ska MySQL startas vid systemets uppstart?
+ MySQL-servern kan startas vid systemets uppstart eller manuellt med kommandot "/etc/init.d/mysql start".
+Description-tr.UTF-8: MySQL açılış sırasında başlatılsın mı?
+ MySQL sunucusu açılış sırasında kendiliğinden ya da sonradan elle '/etc/init.d/mysql start' komutu çalıştırılarak başlatılabilir.
+
+Template: mysql-server/root_password
+Type: password
+Description: New password for the MySQL "root" user:
+ While not mandatory, it is highly recommended that you set a password
+ for the MySQL administrative "root" user.
+ .
+ If this field is left blank, the password will not be changed.
+Description-da.UTF-8: Ny adgangskode for MySQL's »rootbruger«:
+ Selvom det ikke kræves, anbefales det kraftigt, at du sætter en adgangskode for MySQL's administrationsbruger »root«.
+ .
+ Hvis du lader dette felt stå tomt, vil adgangskoden ikke blive ændret.
+Description-de.UTF-8: Neues Passwort für den MySQL-»root«-Benutzer:
+ Obwohl es nicht zwingend erforderlich ist, wird nachdrücklich empfohlen, für den administrativen MySQL-»root«-Benutzer ein Passwort zu setzen.
+ .
+ Wenn dieses Feld freigelassen wird, wird das Passwort nicht geändert.
+Description-es.UTF-8: Nueva contraseña para el usuario «root» de MySQL:
+ Se recomienda que configure una contraseña para el usuario «root» (administrador) de MySQL, aunque no es obligatorio.
+ .
+ No se modificará la contraseña si deja el espacio en blanco.
+Description-fr.UTF-8: Nouveau mot de passe de l'utilisateur « root » (superutilisateur) de MySQL :
+ Il est très fortement recommandé d'établir un mot de passe pour le compte d'administration de MySQL (« root »).
+ .
+ Si ce champ est laissé vide, le mot de passe ne sera pas changé.
+Description-it.UTF-8: Nuova password per l'utente «root» di MySQL:
+ Sebbene non sia obbligatoria, si raccomanda d'impostare una password per l'utente d'amministrazione «root» di MySQL.
+ .
+ Se questo campo è lasciato vuoto, la password non viene cambiata.
+Description-ja.UTF-8: MySQL の "root" ユーザに対する新しいパスワード:
+ 強制ではありませんが、MySQL を管理する "root" ユーザのパスワードを設定することを強くお勧めします。
+ .
+ この値を空のままにしておいた場合は、パスワードは変更されません。
+Description-nl.UTF-8: Nieuw wachtwoord voor de MySQL "root"-gebruiker:
+ Hoewel niet verplicht, wordt het sterk aangeraden een wachtwoord in te stellen voor de administratieve MySQL "root"-gebruiker.
+ .
+ Als dit veld leeg wordt gelaten, zal het wachtwoord niet worden veranderd.
+Description-pt.UTF-8: Nova palavra-passe para o utilizador "root" do MySQL:
+ Embora não seja obrigatório, é fortemente recomendado que defina uma palavra-passe para o utilizador administrativo "root" do MySQL.
+ .
+ Se este campo for deixado em branco, a palavra-passe não irá ser alterada.
+Description-pt_BR.UTF-8: Nova senha para o usuário "root" do MySQL:
+ Apesar de não ser obrigatório, é altamente recomendado que você defina uma senha para o usuário administrativo "root" do MySQL.
+ .
+ Caso este campo seja deixado em branco, a senha não sera mudada.
+Description-ru.UTF-8: Новый пароль для MySQL пользователя «root»:
+ Хотя и необязательно, но настоятельно рекомендуется установить пароль для административного пользователя MySQL «root».
+ .
+ Если оставить поле пустым, то пароль изменён не будет.
+Description-sk.UTF-8: Nové heslo MySQL používateľa „root”:
+ Hoci to nie je vyslovene nutné, je silne odporúčané nastaviť heslo správcovského MySQL účtu "root".
+ .
+ Ak toto pole ponecháte prázdne, heslo nebude zmenené.
+Description-sv.UTF-8: Nytt lösenord för MySQLs "root"-användare:
+ Det är inte obligatoriskt men starkt rekommenderat att du sätter ett lösenord för MySQLs administrativa "root"-användare.
+ .
+ Om detta fält lämnas tom kommer lösenordet inte att ändras.
+Description-tr.UTF-8: MySQL "root" kullanıcısı için yeni parola:
+ Zorunlu olmasa da MySQL yönetimsel "root" kullanıcısı için bir parola oluşturulması kuvvetle önerilir.
+ .
+ Bu alanın boş bırakılması durumunda parola değiştirilmeyecektir.
+
+Template: mysql-server/root_password_again
+Type: password
+Description: Repeat password for the MySQL "root" user:
+Description-da.UTF-8: Gentag adgangskode for MySQL's »root-bruger«:
+Description-de.UTF-8: Wiederholen Sie das Passwort für den MySQL-»root«-Benutzer:
+Description-es.UTF-8: Nueva contraseña para el usuario «root» de MySQL:
+Description-eu.UTF-8: Errepikatu MySQL "root" erabiltzailearen pasahitza:
+Description-fr.UTF-8: Confirmation du mot de passe de l'utilisateur « root » de MySQL :
+Description-it.UTF-8: Ripetere la password per l'utente «root» di MySQL:
+Description-ja.UTF-8: MySQL の "root" ユーザに対する新しいパスワード:
+Description-nl.UTF-8: Herhaal het wachtwoord voor de MySQL "root"-gebruiker:
+Description-pt.UTF-8: Repita a palavra-passe para o utilizador "root" de MySQL:
+Description-pt_BR.UTF-8: Repita a senha para o usuário "root" do MySQL:
+Description-ru.UTF-8: Повторите ввод пароля для MySQL пользователя «root»:
+Description-sk.UTF-8: Zopakujte heslo MySQL používateľa „root“:
+Description-sv.UTF-8: Repetera lösenordet för MySQLs "root"-användare:
+Description-tr.UTF-8: MySQL "root" kullanıcısının parolasını yineleyin:
+
+Template: mysql-server/password_mismatch
+Type: error
+Description: Password input error
+ The two passwords you entered were not the same. Please try again.
+Description-da.UTF-8: Inddatafejl for adgangskode
+ De to adgangskoder du indtastede var ikke de samme. Forsøg venligst igen.
+Description-de.UTF-8: Passwort-Eingabefehler
+ Die beiden von Ihnen eingegebenen Passwörter sind nicht identisch. Bitte versuchen Sie es erneut.
+Description-es.UTF-8: Se ha producido un error al introducir la contraseña
+ Las dos contraseñas que ha introducido son distintas. Intente de nuevo.
+Description-eu.UTF-8: Pasahitz sarrera errorea
+ Idatzi dituzun bi pasahitzak ez dira berdina. Mesedez saiatu berriz.
+Description-fr.UTF-8: Erreur de saisie du mot de passe
+ Le mot de passe et sa confirmation ne sont pas identiques. Veuillez recommencer.
+Description-it.UTF-8: Errore di inserimento della password
+ Le due password inserite sono diverse. Riprovare.
+Description-ja.UTF-8: パスワード入力エラー
+ 入力された二つのパスワードが一致しません。再入力してください。
+Description-nl.UTF-8: Fout bij het invoeren van het wachtwoord
+ De twee wachtwoorden die u hebt ingevoerd zijn niet gelijk. Probeert u het opnieuw.
+Description-pt.UTF-8: Erro de entrada da palavra-passe
+ As duas palavras-passe que introduziu não são as mesmas. Por favor tente novamente.
+Description-pt_BR.UTF-8: Erro ao informar a senha
+ As duas senhas que você informou não foram as mesmas. Por favor, tente novamente.
+Description-ru.UTF-8: Ошибка ввода пароля
+ Два введённых пароля не одинаковы. Повторите ввод.
+Description-sk.UTF-8: Chyba pri zadávaní hesla
+ Heslá, ktoré ste zadali sa nezhodujú. Skúste prosím znova.
+Description-sv.UTF-8: Fel vid inmatning av lösenord
+ De två lösenorden du angav stämde inte överrens. Prova igen.
+Description-tr.UTF-8: Parola girişi hatalı
+ Girdiğiniz parolalar eşleşmiyor, lütfen yeniden deneyin.
+
+Template: mysql-server/no_upgrade_when_using_ndb
+Type: error
+Description: NDB Cluster seems to be in use
+ MySQL-8.0 no longer provides NDB Cluster support. Please migrate to the new
+ mysql-cluster-server package and remove all lines starting with "ndb" from
+ all config files below /etc/mysql/.

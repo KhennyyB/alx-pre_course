@@ -1,0 +1,11 @@
+/etc/apparmor.d/usr.sbin.mysqld
+/etc/init.d/mysql
+/etc/init/mysql.conf
+/etc/logcheck/ignore.d.paranoid/mysql-server-8_0
+/etc/logcheck/ignore.d.server/mysql-server-8_0
+/etc/logcheck/ignore.d.workstation/mysql-server-8_0
+/etc/logrotate.d/mysql-server
+/etc/mysql/debian-start
+/etc/mysql/mysql.cnf
+/etc/mysql/mysql.conf.d/mysql.cnf
+/etc/mysql/mysql.conf.d/mysqld.cnf

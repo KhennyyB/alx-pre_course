@@ -1,0 +1,16 @@
+5ced5a5eb983a6c16a5d3fd21a12cc17  usr/bin/ldrdf
+7b4fd51d8fd1b0775e27f29012d1cf06  usr/bin/nasm
+7335bf7dec78fa745e52fbef2bb336a7  usr/bin/ndisasm
+9da666eb9e3a93dcfe16d3722dd6f3ef  usr/bin/rdf2bin
+a495802f4ec1758bc72927409d861577  usr/bin/rdfdump
+d605712ea0c3b5018bb5da5cabf9aa4d  usr/bin/rdflib
+0d0b3f68bdbf2247881e7cf5cb19c181  usr/bin/rdx
+da460f65ff59361de60cde3e8611661e  usr/share/doc/nasm/changelog.Debian.gz
+ab3fd6bb3be171a91e1c321e82100b5f  usr/share/doc/nasm/copyright
+5fb0accaa24198b0da2ba73305f3883e  usr/share/man/man1/ldrdf.1.gz
+b40e698889ad8f1299ef6655b4d7b2c3  usr/share/man/man1/nasm.1.gz
+02d8f2c5180e88df1e8b1fe909a11d0c  usr/share/man/man1/ndisasm.1.gz
+7388b793eb7b6f05a10013023f131aab  usr/share/man/man1/rdf2bin.1.gz
+5447f0e6f267475c20e29b5fcb9982ee  usr/share/man/man1/rdfdump.1.gz
+31e36a2f2f9e61125b7b639bcee839ee  usr/share/man/man1/rdflib.1.gz
+c12531da9d8ef88f7b32c76ba86dfef3  usr/share/man/man1/rdx.1.gz

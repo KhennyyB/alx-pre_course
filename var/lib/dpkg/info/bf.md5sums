@@ -1,0 +1,13 @@
+871556d5c9038a7c228701b5ae8afb13  usr/bin/bf
+e3436e4af44d7f70d593e3ca94ff0b32  usr/share/doc/bf/changelog.gz
+848c33ade93c84fa4309ae8cd8abe183  usr/share/doc/bf/copyright
+0f68b084bf6091b1d030441b3f47d42b  usr/share/doc/bf/examples/INDEX
+708530fc607d2a9dbc8dce3da79dd516  usr/share/doc/bf/examples/cat.b
+a41d150cfbae5991093530ce241e08b3  usr/share/doc/bf/examples/hello.b
+5f7ea05e07117d0cd9fdac2a2650e909  usr/share/doc/bf/examples/mandelbrot.b.gz
+56e35ba020f433e88dc7338ba64df4de  usr/share/doc/bf/examples/prime.b.gz
+b80b7ffc140a456037370b1f92431ef6  usr/share/doc/bf/examples/quine1.b
+cf2364a2897e7ff0de1daf6d256a3a77  usr/share/doc/bf/examples/quine2.b
+10cd93853c8552150e75cc2551cbd483  usr/share/doc/bf/examples/quine3.b
+3aa27e8ce97c9a9097d84977703d3818  usr/share/doc/bf/examples/random.b
+3027f813720d775fa4169d2f8661b8f9  usr/share/man/man1/bf.1.gz

@@ -1,0 +1,9 @@
+auto
+/usr/bin/emacs
+emacs.1.gz
+/usr/share/man/man1/emacs.1.gz
+
+/usr/bin/emacs-gtk
+28
+/usr/share/man/man1/emacs.emacs.1.gz
+

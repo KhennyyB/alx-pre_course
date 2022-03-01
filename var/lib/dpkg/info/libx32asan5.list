@@ -1,0 +1,11 @@
+/.
+/usr
+/usr/libx32
+/usr/libx32/libasan.so.5.0.0
+/usr/share
+/usr/share/doc
+/usr/share/lintian
+/usr/share/lintian/overrides
+/usr/share/lintian/overrides/libx32asan5
+/usr/libx32/libasan.so.5
+/usr/share/doc/libx32asan5

@@ -1,0 +1,5 @@
+02a591754df9dc8caf4c6ca0f7f3d558  usr/bin/emacs-gtk
+1a8c9e85a8917aee3b4dbe69f6122bcb  usr/share/applications/emacs-term.desktop
+8318723a61c7eac5ac3aa0166613f637  usr/share/applications/emacs.desktop
+8ac4d6dc6c211a00433a16d544fcb65e  usr/share/emacs/26.3/etc/DOC
+2c84fbefb32897546d39519a27c74466  usr/share/lintian/overrides/emacs-gtk

@@ -1,0 +1,9 @@
+2236674edbe8efc94f2f681a6e373cdb  usr/lib/x86_64-linux-gnu/libicudata.so.66.1
+053f6f9d58e59a75509e4bf5e2c21f96  usr/lib/x86_64-linux-gnu/libicui18n.so.66.1
+d8b76e7ef55aa79a367725beeb1e82a9  usr/lib/x86_64-linux-gnu/libicuio.so.66.1
+b5e76b46ddafa3671ac90bbe8fa8d240  usr/lib/x86_64-linux-gnu/libicutest.so.66.1
+e52a996730797512d6bdbda16e38b111  usr/lib/x86_64-linux-gnu/libicutu.so.66.1
+847a1dc2d266d158449beb5b4229ba45  usr/lib/x86_64-linux-gnu/libicuuc.so.66.1
+29ec7cb657178401bb43e92c6327c635  usr/share/doc/libicu66/changelog.Debian.gz
+f3fbc5a9bf6aebc92cbce6867e8db255  usr/share/doc/libicu66/copyright
+2d3f4e5a0a3b64d8354d6cd3b6e309a2  usr/share/lintian/overrides/libicu66

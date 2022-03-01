@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+FULL=26.3
+
+set +e
+# Only remove these directories if they're empty.
+rmdir /usr/local/share/emacs/${FULL}/site-lisp 2>/dev/null
+rmdir /usr/local/share/emacs/${FULL} 2>/dev/null
+set -e
+
+# Automatically added by dh_usrlocal/12.9ubuntu1
+(
+	while read dir; do
+		rmdir "$dir" 2>/dev/null || true
+	done
+) << DATA
+/usr/local/share/emacs/site-lisp
+/usr/local/share/emacs
+DATA
+# End automatically added section
+

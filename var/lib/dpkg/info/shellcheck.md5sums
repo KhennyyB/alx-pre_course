@@ -1,0 +1,4 @@
+ed51c181bbb553024b0ae9daa30082eb  usr/bin/shellcheck
+923af79cb8d0fe8a78eababcb81d0fbd  usr/share/doc/shellcheck/changelog.Debian.gz
+4225f5a4cb918d258dc26493d45922ef  usr/share/doc/shellcheck/copyright
+554df8f8c6266d8b45d5c4207f653aef  usr/share/man/man1/shellcheck.1.gz

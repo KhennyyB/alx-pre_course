@@ -1,0 +1,9 @@
+f60f419b4972d02d9a960181564f9fba  usr/lib/systemd/user/at-spi-dbus-bus.service
+1563f274acd4e7ba530a55bdc4c95682  usr/libexec/at-spi-bus-launcher
+1d904c2693452edebc7ede3a9e24d440  usr/libexec/at-spi2-registryd
+cc59af0745eb92c3ab39ec8dbfceec2f  usr/share/dbus-1/accessibility-services/org.a11y.atspi.Registry.service
+110c1867ad9055fe105f1ae8f261cea9  usr/share/dbus-1/services/org.a11y.Bus.service
+35494de21120cb9df9a3bec1afdeccdd  usr/share/defaults/at-spi2/accessibility.conf
+540475d627e5aa941e08eeffb6a5319c  usr/share/doc/at-spi2-core/NEWS.gz
+0b50684c98c6414b8133a6aa1534b1b2  usr/share/doc/at-spi2-core/README
+2fc7f3f5597c08c2bf11fc9e77db4f9e  usr/share/doc/at-spi2-core/copyright

@@ -1,0 +1,10 @@
+34421501700a428fb94c4207825326fa  usr/include/crypt.h
+3e8aa19a4c4270987980af637378b410  usr/lib/x86_64-linux-gnu/libcrypt.a
+48bf8b0d5cd3d1c9a545b5e4f9cce664  usr/lib/x86_64-linux-gnu/pkgconfig/libxcrypt.pc
+6acd28cc13ac84e65251ac53a169a83c  usr/share/doc/libcrypt1/README.md.gz
+a74438b1487c8db5812e8b632f652a39  usr/share/doc/libcrypt1/TODO.md.gz
+b4e5269cce82ab4516a41b7ad1f96412  usr/share/man/man3/crypt.3.gz
+39455a7b2625ce82cca9ccb6c6a66dff  usr/share/man/man3/crypt_checksalt.3.gz
+fb338688d2acc13085dd018fb6604082  usr/share/man/man3/crypt_gensalt.3.gz
+95db2fbe64f724579bb8973bb5f05d3f  usr/share/man/man3/crypt_preferred_method.3.gz
+e5e235d9e5cc843076bac5725d9ef776  usr/share/man/man5/crypt.5.gz
