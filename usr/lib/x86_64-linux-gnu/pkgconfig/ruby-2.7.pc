@@ -1,0 +1,59 @@
+arch=x86_64-linux-gnu
+sitearch=${arch}
+prefix=/usr
+exec_prefix=${prefix}
+bindir=${exec_prefix}/bin
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+MAJOR=2
+MINOR=7
+TEENY=5
+ruby_version=2.7.0
+RUBY_API_VERSION=${MAJOR}.${MINOR}
+RUBY_PROGRAM_VERSION=${MAJOR}.${MINOR}.${TEENY}
+RUBY_BASE_NAME=ruby
+RUBY_VERSION_NAME=${RUBY_BASE_NAME}-${ruby_version}
+RUBY_SO_NAME=ruby-2.7
+RUBY_INSTALL_NAME=${RUBY_BASE_NAME}2.7
+DEFFILE=
+archlibdir=${libdir}/${arch}
+sitearchlibdir=${libdir}/${sitearch}
+archincludedir=${includedir}/${arch}
+sitearchincludedir=${includedir}/${sitearch}
+ruby=${bindir}/${RUBY_INSTALL_NAME}
+rubylibprefix=${libdir}/${RUBY_BASE_NAME}
+rubyarchprefix=${archlibdir}/${RUBY_BASE_NAME}
+rubysitearchprefix=${sitearchlibdir}/${RUBY_BASE_NAME}
+rubylibdir=${rubylibprefix}/${ruby_version}
+vendordir=${rubylibprefix}/vendor_ruby
+sitedir=/usr/local/lib/site_ruby
+vendorlibdir=${vendordir}/${ruby_version}
+sitelibdir=${sitedir}/${ruby_version}
+rubyarchdir=${rubyarchprefix}/${ruby_version}
+vendorarchdir=${rubysitearchprefix}/vendor_ruby/${ruby_version}
+sitearchdir=/usr/local/lib/x86_64-linux-gnu/site_ruby
+rubyhdrdir=${includedir}/${RUBY_VERSION_NAME}
+vendorhdrdir=${rubyhdrdir}/vendor_ruby
+sitehdrdir=${rubyhdrdir}/site_ruby
+rubyarchhdrdir=${archincludedir}/${RUBY_VERSION_NAME}
+vendorarchhdrdir=${sitearchincludedir}/${RUBY_VERSION_NAME}/vendor_ruby
+sitearchhdrdir=${sitearchincludedir}/${RUBY_VERSION_NAME}/site_ruby
+MAINLIBS=-lpthread -lrt -lrt -lgmp -ldl -lcrypt -lm 
+SOEXT=so
+LIBPATH=
+LIBRUBY_A=lib${RUBY_SO_NAME}-static.a
+LIBRUBY_SO=lib${RUBY_SO_NAME}.${SOEXT}.${RUBY_PROGRAM_VERSION}
+LIBRUBY=${LIBRUBY_SO}
+LIBRUBYARG_SHARED=-l${RUBY_SO_NAME}
+LIBRUBYARG_STATIC=-l${RUBY_SO_NAME}-static ${MAINLIBS}
+LIBRUBYARG=${LIBRUBYARG_SHARED}
+LIBS=-lm 
+DLDFLAGS=
+
+Name: Ruby
+Description: Object Oriented Script Language
+Version: ${ruby_version}
+URL: https://www.ruby-lang.org
+Cflags: -I${rubyarchhdrdir} -I${rubyhdrdir}
+Libs: ${DLDFLAGS} ${LIBRUBYARG_SHARED} ${LIBS}
+Requires:

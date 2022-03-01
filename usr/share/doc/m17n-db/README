@@ -1,0 +1,90 @@
+This directory tree holds version 1.8.0 of the m17n database.
+Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012,
+  2013, 2014
+  National Institute of Advanced Industrial Science and Technology (AIST)
+  Registration Number H15PRO112
+Copyright (C) 2013, 2014, 2015, 2016, 2017, 2018 Kenichi Handa <handa@gnu.org>
+See the end for copying conditions.
+
+----------------------------------------------------------------------
+## INSTALL ##
+
+(0) Prerequisite
+
+The make procedure requires "charmap" files.  The configure script
+cheks the directory /usr/share/i18n/charmaps which usually should be
+found on GNU/Linux system.
+
+If you don't have that directory, you must get the files from the
+source of glibc, and inform the configure script of the directory by
+the argument "--with-charmaps=DIR".
+
+If you have "wget", the script "./get-glibc.sh" is a convenient tool
+to download the source of glibc (2.3) and extract files in a directory
+where the configure script finds automatically, thus no need of
+"--with-charmaps=DIR" argument.
+
+Please note that /usr/share/i18n/charmaps may contain incomplete
+GB18030.gz (e.g. /xfe/xa0.. /xfe/xfe are not mapped).  In that case,
+you need the newer glibc source (glibc-2.3) by using "./get-glibc.sh".
+
+(1) Installation from CVS working directory.
+
+Just after you checked out or updated this package, run the script
+"./bootstrap.sh", then follows (2).
+
+(2) Installation from a tar ball.
+
+% ./configure
+% make
+% make install
+
+----------------------------------------------------------------------
+## Files and directories ##
+
+mdb.dir -- defining database files
+FLT/ -- directory containing font layout table (*.flt)
+LANGDATA/ -- directory containing language names data (*.lnm)
+MIM/ -- directory containing input methdos (*.mim)
+icons/ -- directory containing icon files of input methdos (*.png)
+po/ -- directory containing localized messages of input methods
+*.map -- Charaset set mapping tables
+
+----------------------------------------------------------------------
+## Thanks ##
+
+We appreciate all contributers (see the section "Contributed files"
+below) improving the m17n library.  We also appreciate Harshula
+Jayasuriya helping this project in various aspects (setting up
+Savannah infrastructure, advising on GIT, appropriate suggestions,
+etc).
+
+----------------------------------------------------------------------
+## Copyright information ##
+
+Most files in this package are copyrighted by AIST as below;
+exceptions are listed in the file AUTHORS.
+
+Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012,
+  2013, 2014
+  National Institute of Advanced Industrial Science and Technology (AIST)
+  Registration Number H15PRO112
+Copyright (C) 2013, 2014, 2015, 2016, 2017, 2018 Kenichi Handa <handa@gnu.org>
+
+This file is part of the m17n database; a sub-part of the m17n
+library.
+
+The m17n library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+The m17n library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with the m17n library; if not, write to the Free
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301, USA.

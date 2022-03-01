@@ -1,0 +1,18 @@
+This is the Debian GNU/Linux prepackaged version of the POSIX
+manual pages.  These pages were originally maintained by Rik Faith
+and then taken over by Andries Brouwer <aeb@cwi.nl>, under permission
+of IEEE Open Group.
+
+POSIX manpages are maintained under separate 0p,1p and 3p sections, but
+this convention is not conforming with FHS, so they are moved in 7, 1 and 3
+respectively, with extensions 7posix, 1posix and 3posix. So you
+can use
+
+man 3 -e 3posix <function> 
+
+to access POSIX functions description instead of Linux one.
+
+Having manpages is very important to every operating system.  It is much
+work to keep those documents up to date and to initially write them.
+Nevertheless some folks made some of this work.  Contributions are
+welcome.

@@ -1,0 +1,6 @@
+# Upstream doesn't provide a changelog
+manpages-posix: no-upstream-changelog
+
+# Since we are not allowed to modify the manpages,
+# override lintian's manpage-has-errors-from-man warnings.
+manpages-posix: manpage-has-errors-from-man

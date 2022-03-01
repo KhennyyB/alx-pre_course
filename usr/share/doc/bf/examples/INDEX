@@ -1,0 +1,17 @@
+cat.b
+	a simple program which outputs its input.
+	bf cat.b < file
+hello.b -- Hello world, source: Wikipedia
+mandelbrot.b -- by Erik Bosman
+	size an x-terminal-emulator or your console to 130x48 chars
+	and enjoy!
+prime.b -- author unknown?
+	brainfuck find-primes-up-to...-algorithm - slow, but works ;)
+quine1.b -- by Jason Reed
+quine2.b -- by Brian Raiter
+quine3.b -- by Jeremy Bruestle
+	... all quines taken from http://www.nyx.net/~gthompso/self_brainf.txt
+	A "quine" means self-producing code. Code showing itself.
+random.b -- by Daniel B Cristofani
+	a replacement for /dev/random or /dev/urandom
+	No, it's always the same ;)
