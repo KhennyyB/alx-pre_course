@@ -1,4 +1,0 @@
-/* GNU ld script
-*/
-OUTPUT_FORMAT(elf32-x86-64)
-GROUP ( /libx32/libm.so.6  AS_NEEDED ( /libx32/libmvec.so.1 ) )
