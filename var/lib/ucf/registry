@@ -1,3 +1,0 @@
-openssh-server 	 /etc/ssh/sshd_config
-unattended-upgrades 	 /etc/apt/apt.conf.d/20auto-upgrades
-unattended-upgrades 	 /etc/apt/apt.conf.d/50unattended-upgrades

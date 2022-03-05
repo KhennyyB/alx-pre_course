@@ -1,9 +1,0 @@
-auto
-/usr/bin/ctags
-ctags.1.gz
-/usr/share/man/man1/ctags.1.gz
-
-/usr/bin/ctags.emacs
-28
-/usr/share/man/man1/ctags.emacs.1.gz
-
